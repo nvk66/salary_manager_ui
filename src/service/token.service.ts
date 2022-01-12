@@ -1,4 +1,4 @@
-import userData from '../type/userData'
+import userData from '../types/userData'
 
 const getLocalRefreshToken = () => {
     const user = JSON.parse(sessionStorage.getItem('salary_manager_user') as string);

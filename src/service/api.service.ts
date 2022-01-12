@@ -1,8 +1,8 @@
 import axios, {AxiosRequestConfig} from 'axios';
 import TokenService from './token.service';
-import userData from '../type/userData'
+import userData from '../types/userData'
 
-const host = 'http://localhost:8080/api/';
+const host = 'http://localhost:8080/';
 
 const instance = axios.create({
     baseURL: host,
@@ -10,6 +10,12 @@ const instance = axios.create({
         'Content-Type': 'application/json',
     },
 });
+
+// function pageableSearch(page: number, size: number) {
+//     return '?page=' + page + '&size=' + size;
+// }
+//
+// const pageableRequestQuery = (page: number, size: number) => pageableSearch(page, size);
 
 instance.interceptors.request.use(
     (config: AxiosRequestConfig) => {
@@ -55,4 +61,9 @@ instance.interceptors.response.use(
     }
 );
 
-export default instance;
+const Api = {
+    instance,
+    // pageableRequestQuery,
+};
+
+export default Api;

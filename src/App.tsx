@@ -5,11 +5,13 @@ import "./App.css";
 
 // import AuthVerify from "./common/auth-verify"
 import AuthService from "./service/auth.service";
-import UserData from './type/userData';
+import UserData from './types/userData';
 
 import Login from "./component/auth/login.component";
 
 import EventBus from "./common/EventBus";
+import EmployeesTable from "./component/employee/employee.component";
+import TokenService from "./service/token.service";
 
 type Props = {};
 
@@ -65,40 +67,55 @@ class App extends Component<Props, State> {
 
         return (
             <div>
-                {currentUser ?
+                {(TokenService.getUser() && window.location.pathname !== '/login') ?
                     <nav className="navbar navbar-expand navbar-dark bg-dark">
-                        {/*<Link to="/" className="navbar-brand">*/}
-                        {/*    неВсеПлатежи*/}
-                        {/*</Link>*/}
-                        {/*<div className="navbar-nav mr-auto">*/}
-                        {/*    <li className="nav-item">*/}
-                        {/*        <Link to="/home" className="nav-link">*/}
-                        {/*            Home*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*</div>*/}
+                        <Link to="/" className="navbar-brand">
+                            SalaryService
+                        </Link>
+                        <div className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link to="/home" className="nav-link">
+                                    Home
+                                </Link>
+                            </li>
+                        </div>
+                        <div className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link to="/employees" className="nav-link">
+                                    Employees
+                                </Link>
+                            </li>
+                        </div>
+                        <div className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link to="/employees" className="nav-link">
+                                    Profile
+                                </Link>
+                            </li>
+                        </div>
 
-                        {/*<div className="navbar-nav ml-auto">*/}
-                        {/*    <li className="nav-item">*/}
-                        {/*        {currentUser ? (*/}
-                        {/*            <a href="/login" className="nav-link" onClick={this.logOut}>*/}
-                        {/*                LogOut*/}
-                        {/*            </a>*/}
-                        {/*        ) : (*/}
-                        {/*            <a href="/login" className="nav-link" onClick={this.logOut}>*/}
-                        {/*                LogOut*/}
-                        {/*            </a>)*/}
-                        {/*        }*/}
-                        {/*    </li>*/}
-                        {/*</div>*/}
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                {currentUser ? (
+                                    <a href="/login" className="nav-link" onClick={this.logOut}>
+                                        LogOut
+                                    </a>
+                                ) : (
+                                    <a href="/login" className="nav-link" onClick={this.logOut}>
+                                        LogOut
+                                    </a>)
+                                }
+                            </li>
+                        </div>
                     </nav> : (<div/>)
                 }
 
-                <div className="container mt-3">
+                {/*<div className="container mt-3">*/}
                     <Switch>
                         <Route exact path="/login" component={Login}/>
+                        <Route exact path="/employees" component={EmployeesTable}/>
                     </Switch>
-                </div>
+                {/*</div>*/}
 
                 {/*{<AuthVerify logOut={this.logOut}/>}*/}
             </div>

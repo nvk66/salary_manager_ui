@@ -1,7 +1,8 @@
 // import http from '../http-common';
-import api from  './api.service'
-import loginDada from '../type/loginData'
-import userData from '../type/userData'
+import http from  './api.service'
+import loginDada from '../types/loginData'
+import userData from '../types/userData'
+import TokenService from "./token.service";
 
 class AuthService {
     parseJwt(token: string) {
@@ -13,8 +14,8 @@ class AuthService {
     }
 
     login(auth: loginDada) {
-        return api
-            .post<userData>('login', {
+        return http.instance
+            .post<userData>('api/login', {
                 login: auth.login,
                 password: auth.password
             })
@@ -29,7 +30,8 @@ class AuthService {
                         expireDataAccessToken: parsedToken.exp
                     }
                     console.log(user);
-                    localStorage.setItem('user', JSON.stringify(user));
+                    TokenService.setUser(user);
+                    // localStorage.setItem('user', JSON.stringify(user));
                 }
                 return response.data;
             });
